@@ -4,11 +4,12 @@ var webpack = require('webpack');
 
 module.exports = {
 	entry:{
-		app:['./entry/app.js']
+		app:['react-hot-loader/patch','whatwg-fetch','./entry/app.js']
 	},
 	output:{
 		path:path.join(__dirname,'build'),
-		filename:'[name].js'
+		filename:'[name].js',
+        publicPath:'http://localhost:8082/'
 	},
     resolve: {
         alias: {
@@ -58,5 +59,14 @@ module.exports = {
             util:'util'
         })
     ],
+    devServer: {
+        publicPath: 'http://localhost:8082/',
+        hot: true,
+        historyApiFallback: true,
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "*",
+        }
+    },
 	devtool: 'eval-source-map'
 }

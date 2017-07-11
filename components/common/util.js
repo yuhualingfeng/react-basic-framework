@@ -1,5 +1,5 @@
 let util = {
-	name:1
+	name:'welcome'
 }
 
 module.exports = util
