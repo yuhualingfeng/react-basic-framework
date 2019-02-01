@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --content-base  --inline --hot --port 8082 --dispaly-error-detail",
-    "release": "webpack --config webpack.configRelease.js",
-    "dll": "webpack --config webpack.configDll.js --dispaly-error-detail",
+    "release": "webpack --config webpack.dll.js && webpack --config webpack.release.js",
     "server": "node server.js"
   },
   "repository": {

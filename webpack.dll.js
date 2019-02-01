@@ -61,9 +61,9 @@ module.exports = {
         }),
         new HtmlWebpackPlugin(
             {
-                title:"LEAP Lenovo Enterprise Analytics Platform",
-                filename: '../my-index2.html',
-                template: './my-index.html',
+                title:"React App",
+                filename: '../template.html',
+                template: './template-dll.html',
                 favicon:"./favicon.ico",
                 hash: true,
                 chunks:["jquery","react","echarts","bootstrap","redux"],

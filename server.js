@@ -12,7 +12,7 @@ const broserHistory = false;
 
 if(broserHistory)
 app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname, 'index2.html'))
+  response.sendFile(path.resolve(__dirname, 'dev.html'))
 })
 
 app.listen(port)

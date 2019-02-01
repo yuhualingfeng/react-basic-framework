@@ -1,20 +1,20 @@
 {
   "name": "bootstrap",
   "content": {
-    "./node_modules/.3.3.7@bootstrap/dist/js/npm.js": 1,
-    "./node_modules/.3.3.7@bootstrap/js/transition.js": 2,
-    "./node_modules/.3.2.1@jquery/dist/jquery.js": 3,
-    "./node_modules/.3.3.7@bootstrap/js/alert.js": 4,
-    "./node_modules/.3.3.7@bootstrap/js/button.js": 5,
-    "./node_modules/.3.3.7@bootstrap/js/carousel.js": 6,
-    "./node_modules/.3.3.7@bootstrap/js/collapse.js": 7,
-    "./node_modules/.3.3.7@bootstrap/js/dropdown.js": 8,
-    "./node_modules/.3.3.7@bootstrap/js/modal.js": 9,
-    "./node_modules/.3.3.7@bootstrap/js/tooltip.js": 10,
-    "./node_modules/.3.3.7@bootstrap/js/popover.js": 11,
-    "./node_modules/.3.3.7@bootstrap/js/scrollspy.js": 12,
-    "./node_modules/.3.3.7@bootstrap/js/tab.js": 13,
-    "./node_modules/.3.3.7@bootstrap/js/affix.js": 14,
-    "./node_modules/.1.6.4@bootstrap-datepicker/dist/js/bootstrap-datepicker.js": 15
+    "./node_modules/_bootstrap@3.4.0@bootstrap/dist/js/npm.js": 1,
+    "./node_modules/_bootstrap@3.4.0@bootstrap/js/transition.js": 2,
+    "./node_modules/_jquery@3.3.1@jquery/dist/jquery.js": 3,
+    "./node_modules/_bootstrap@3.4.0@bootstrap/js/alert.js": 4,
+    "./node_modules/_bootstrap@3.4.0@bootstrap/js/button.js": 5,
+    "./node_modules/_bootstrap@3.4.0@bootstrap/js/carousel.js": 6,
+    "./node_modules/_bootstrap@3.4.0@bootstrap/js/collapse.js": 7,
+    "./node_modules/_bootstrap@3.4.0@bootstrap/js/dropdown.js": 8,
+    "./node_modules/_bootstrap@3.4.0@bootstrap/js/modal.js": 9,
+    "./node_modules/_bootstrap@3.4.0@bootstrap/js/tooltip.js": 10,
+    "./node_modules/_bootstrap@3.4.0@bootstrap/js/popover.js": 11,
+    "./node_modules/_bootstrap@3.4.0@bootstrap/js/scrollspy.js": 12,
+    "./node_modules/_bootstrap@3.4.0@bootstrap/js/tab.js": 13,
+    "./node_modules/_bootstrap@3.4.0@bootstrap/js/affix.js": 14,
+    "./node_modules/_bootstrap-datepicker@1.8.0@bootstrap-datepicker/dist/js/bootstrap-datepicker.js": 15
   }
 }

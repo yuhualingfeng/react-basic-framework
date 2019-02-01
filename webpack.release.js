@@ -82,7 +82,7 @@ module.exports = {
             {
                 title:"LEAP Lenovo Enterprise Analytics Platform",
                 filename: '../index.html',
-                template: './my-index2.html',
+                template: './template.html',
                 favicon:"./favicon.ico",
                 hash: true,
                  //chunks:["jquery","react","echarts","bootstrap","redux","app"],
