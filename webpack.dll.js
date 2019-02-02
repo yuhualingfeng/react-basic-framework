@@ -1,10 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
 const AssetsPlugin = require('assets-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+/*********loaders***********/
 
-//压缩文件
+/*********loaders***********/
+
+/*********plugins***********/
 var uglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
     compress: {
         warnings: false
@@ -13,12 +16,42 @@ var uglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
         comments: false,
     }
 });
-//使用上面的压缩文件会产生警告，解决警告
 var definePlugin = new webpack.DefinePlugin({
     "process.env": {
         NODE_ENV: JSON.stringify("production")
     }
-})
+});
+
+var providePlugin = new webpack.ProvidePlugin({
+    $: "jquery",
+    jquery: "jquery",
+    "windows.jQuery": "jquery",
+    jQuery: "jquery"
+});
+
+const dllPlugin = new webpack.DllPlugin({
+    path: path.join(__dirname, 'dll', 'manifest-[name].json'),
+    name: '[name]'
+});
+
+const htmlWebpackPlugin = new HtmlWebpackPlugin(
+    {
+        title:"React App",
+        filename: '../template.html',
+        template: './template-dll.html',
+        favicon:"./favicon.ico",
+        hash: true,
+        chunks:["jquery","react","echarts","bootstrap","redux"],
+        /*chunksSortMode:"dependency",*/
+
+       /* files: {
+            "js": [ "./build/dll.react.js","./build/dll.bootstrap.js", "./build/dll.echarts.js","./build/dll.react.js","./build/dll.redux.js"],
+        }*/
+    }
+);
+
+
+/*********plugins***********/
 
 module.exports = {
     entry: {
@@ -40,41 +73,9 @@ module.exports = {
         library: '[name]'
     },
     plugins: [
-        new webpack.ProvidePlugin({
-            $: "jquery",
-            jquery: "jquery",
-            "windows.jQuery": "jquery",
-            jQuery: "jquery"
-        }),//
-        new webpack.DllPlugin({
-            /**
-             * path
-             * 定义 manifest 文件生成的位置
-             * [name]的部分由entry的名字替换
-             */
-            path: path.join(__dirname, 'dll', 'manifest-[name].json'),
-            /**
-             * name
-             * dll bundle 输出到那个全局变量上
-             * 和 output.library 一样即可。
-             */
-            name: '[name]'
-        }),
-        new HtmlWebpackPlugin(
-            {
-                title:"React App",
-                filename: '../template.html',
-                template: './template-dll.html',
-                favicon:"./favicon.ico",
-                hash: true,
-                chunks:["jquery","react","echarts","bootstrap","redux"],
-                /*chunksSortMode:"dependency",*/
-
-               /* files: {
-                    "js": [ "./build/dll.react.js","./build/dll.bootstrap.js", "./build/dll.echarts.js","./build/dll.react.js","./build/dll.redux.js"],
-                }*/
-            }
-        ),
+        providePlugin,
+        dllPlugin,
+        htmlWebpackPlugin,
         uglifyJsPlugin,//压缩文件
         definePlugin//上面压缩文件会产生警告，这个消除警告
     ]

@@ -1,10 +1,55 @@
 
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
+
+/*********loaders***********/
+const babelLoader = {
+    test: /\.js$/,
+    loader: 'babel-loader',//这样的话就可以不要.babelrc的配置文件
+    exclude: /node_modules/,
+    include: __dirname,
+    query: {
+        "presets": ["react", "es2015"]
+    }
+
+};
+
+const lessLoader = {
+    test: /\.less$/,
+    loaders: ["style", "css?sourceMap", "less?sourceMap"],
+    exclude: /node_modules/,
+};
+
+const cssLoader = {
+    test: /\.css$/,
+    loaders: ["style", "css?sourceMap"],
+    //exclude:/node_modules/,
+};
+
+const urlLoader = {
+    test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
+    loader: 'url-loader?limit=8192'
+};
+
+/*********loaders***********/
+
+/*********plugins***********/
+const providerPlugin = new webpack.ProvidePlugin({
+    $: "jquery",
+    jquery: "jquery",
+    "windows.jQuery": "jquery",
+    jQuery: "jquery",
+    React:'react',
+    ReactRedux:'react-redux',
+    util:'util'
+});
+
+/*********plugins***********/
+
 
 module.exports = {
 	entry:{
-		app:['react-hot-loader/patch','whatwg-fetch','./index.js']
+		app:['react-hot-loader/patch','whatwg-fetch','./src/index.js']
 	},
 	output:{
 		path:path.join(__dirname,'build'),
@@ -15,49 +60,20 @@ module.exports = {
         alias: {
             'util': path.resolve(//path.resolve,把当前位置转换为绝对位置
                 __dirname,
-                './components/common/util'
+                './src/components/common/util'
             )
         }
     },
 	module:{
 		loaders:[
-			{
-                test: /\.js$/,
-                loader: 'babel-loader',//这样的话就可以不要.babelrc的配置文件
-                exclude: /node_modules/,
-                include: __dirname,
-                query: {
-                    "presets": ["react", "es2015"]
-                }
-
-            },
-            {
-                test: /\.less$/,
-                loaders: ["style", "css?sourceMap", "less?sourceMap"],
-                exclude: /node_modules/,
-            },
-            {
-                test: /\.css$/,
-                loaders: ["style", "css?sourceMap"],
-                //exclude:/node_modules/,
-            },
-            {
-                test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
-                loader: 'url-loader?limit=8192'
-
-            },
+			babelLoader,
+            lessLoader,
+            cssLoader,
+            urlLoader
 		]
 	},
     plugins: [
-        new webpack.ProvidePlugin({
-            $: "jquery",
-            jquery: "jquery",
-            "windows.jQuery": "jquery",
-            jQuery: "jquery",
-            React:'react',
-            ReactRedux:'react-redux',
-            util:'util'
-        })
+        providerPlugin
     ],
     devServer: {
         publicPath: 'http://localhost:8082/',

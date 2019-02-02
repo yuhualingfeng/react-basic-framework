@@ -1,20 +1,48 @@
 
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var WebpackMd5Hash = require('webpack-md5-hash');
-var path = require('path');
-var webpack = require('webpack');
-var jquery = require('jquery/dist/jquery.js');
-let ExtractTextPlugin = require('extract-text-webpack-plugin');
-let extractCSS = new ExtractTextPlugin('[name]_1.css');
-let extractLESS = new ExtractTextPlugin('[name]_2.css');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackMd5Hash = require('webpack-md5-hash');
+const path = require('path');
+const webpack = require('webpack');
+const jquery = require('jquery/dist/jquery.js');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const extractCSS = new ExtractTextPlugin('[name]_1.css');
+const extractLESS = new ExtractTextPlugin('[name]_2.css');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+/*********loaders***********/
+
+const cssLoader = {
+    test: /\.css$/,
+    loader:  extractCSS.extract(['css'])
+};
+
+const lessLoader = {
+    test: /\.less$/i,
+    loader: extractLESS.extract(['css','less'])
+};
+
+const babelLoader = {
+    test: /\.js$/,
+    loader: 'babel-loader',//这样的话就可以不要.babelrc的配置文件
+    exclude: /(node_modules|bower_components)/,
+    //exclude:/node_modules/,//排除某个文件的
+    include: __dirname,
+    query: {
+        "presets": ["react", "es2015"]
+    }
+};
+
+const fileLoader = {
+    test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)$/,
+    loader: 'file-loader?publicPath=./'
+};
+
+/*********loaders***********/
 
 /*********plugins***********/
 const cleanWebpackPlugin = new CleanWebpackPlugin(['dist']);
-/*********plugins***********/
 
-//压缩文件
-var uglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
+const uglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
     compress: {
         warnings: false
     },
@@ -22,13 +50,49 @@ var uglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
         comments: false,
     }
 });
-//使用上面的压缩文件会产生警告，解决警告
-var definePlugin = new webpack.DefinePlugin({
+
+const definePlugin = new webpack.DefinePlugin({
     "process.env": {
         NODE_ENV: JSON.stringify("production")
     }
-})
+});
 
+const webpackMd5Hash = new WebpackMd5Hash();
+
+const htmlWebpackPlugin = new HtmlWebpackPlugin(
+    {
+        title:"LEAP Lenovo Enterprise Analytics Platform",
+        filename: '../index.html',
+        template: './template.html',
+        favicon:"./favicon.ico",
+        hash: true,
+         //chunks:["jquery","react","echarts","bootstrap","redux","app"],
+        chunksSortMode:"dependency",
+       /* files: {
+            "js": [ "./build/dll.react.js","./build/dll.bootstrap.js", "./build/dll.echarts.js","./build/dll.react.js","./build/dll.redux.js"],
+        }*/
+    }
+);
+
+const providePlugin = new webpack.ProvidePlugin({
+    $: "jquery",
+    jquery: "jquery",
+    "windows.jQuery": "jquery",
+    jQuery: "jquery",
+    React:"react",
+    ReactRedux:'react-redux',
+    util:'util'
+});
+
+const dlllibs = ['bootstrap', 'jquery', 'react', 'redux','echarts'];
+const dllReferencePlugins = dlllibs.map((item) => {
+    return new webpack.DllReferencePlugin({
+        context: __dirname,
+        manifest: require(`./dll/manifest-${item}.json`),
+    });
+});
+
+/*********plugins***********/
 module.exports = {
     //页面入口文件配置
     entry: {
@@ -52,28 +116,10 @@ module.exports = {
     module: {
         //加载器配置
         loaders: [
-            {
-                test: /\.css$/,
-                loader:  extractCSS.extract(['css'])
-            },
-            {
-                test: /\.less$/i,
-                loader: extractLESS.extract(['css','less'])
-            },
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',//这样的话就可以不要.babelrc的配置文件
-                exclude: /(node_modules|bower_components)/,
-                //exclude:/node_modules/,//排除某个文件的
-                include: __dirname,
-                query: {
-                    "presets": ["react", "es2015"]
-                }
-            },
-            {
-                test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)$/,
-                loader: 'file-loader?publicPath=./'
-            }
+            cssLoader,
+            lessLoader,
+            babelLoader,
+            fileLoader
         ]
 
     },
@@ -82,55 +128,10 @@ module.exports = {
         cleanWebpackPlugin,
         extractCSS,
         extractLESS,
-        new WebpackMd5Hash(),
-        // new webpack.optimize.CommonsChunkPlugin({names: ["jquery","react","echarts","bootstrap","redux"], filename: '[name].js', minChunks: Infinity}),
-        new HtmlWebpackPlugin(
-            {
-                title:"LEAP Lenovo Enterprise Analytics Platform",
-                filename: '../index.html',
-                template: './template.html',
-                favicon:"./favicon.ico",
-                hash: true,
-                 //chunks:["jquery","react","echarts","bootstrap","redux","app"],
-                chunksSortMode:"dependency",
-               /* files: {
-                    "js": [ "./build/dll.react.js","./build/dll.bootstrap.js", "./build/dll.echarts.js","./build/dll.react.js","./build/dll.redux.js"],
-                }*/
-            }
-        ),
-        new webpack.ProvidePlugin({
-            $: "jquery",
-            jquery: "jquery",
-            "windows.jQuery": "jquery",
-            jQuery: "jquery",
-            React:"react",
-            ReactRedux:'react-redux',
-            util:'util'
-        }),//
-        new webpack.DllReferencePlugin({
-            context: __dirname,
-            manifest: require('./dll/manifest-bootstrap.json'),
-        }),
-        new webpack.DllReferencePlugin({
-            context: __dirname,
-            manifest: require('./dll/manifest-echarts.json'),
-        }),
-        new webpack.DllReferencePlugin({
-            context: __dirname,
-            manifest: require('./dll/manifest-jquery.json'),
-        }),
-        new webpack.DllReferencePlugin({
-            context: __dirname,
-            manifest: require('./dll/manifest-react.json'),
-        }),
-        new webpack.DllReferencePlugin({
-            context: __dirname,
-            manifest: require('./dll/manifest-redux.json'),
-        }),
-        uglifyJsPlugin,//压缩文件
-        definePlugin,//上面压缩文件会产生警告，这个消除警告
-    ],
-
-    //devtool:'eval-source-map',//它能帮你定位到未压缩的源代码.但它会生成很大的source map文件，所以只建议在开发模式下使用
-    //wathc:true//当配置了Watchmode，每当又文件修改的时候，Webpack都会自动重新build。
+        webpackMd5Hash,
+        htmlWebpackPlugin,
+        providePlugin,
+        uglifyJsPlugin,
+        definePlugin,
+    ].concat(dllReferencePlugins)
 }
