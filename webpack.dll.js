@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const AssetsPlugin = require('assets-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
+
 //压缩文件
 var uglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
     compress: {
@@ -28,8 +29,8 @@ module.exports = {
         redux:["react-redux","redux"]
     },
     output: {
-        path: path.join(__dirname, 'build'),
-        publicPath: './build/',//访问路径
+        path: path.join(__dirname, 'dll'),
+        publicPath: './dll/',//访问路径
         filename: '[name].js',
         /**
          * output.library
@@ -51,7 +52,7 @@ module.exports = {
              * 定义 manifest 文件生成的位置
              * [name]的部分由entry的名字替换
              */
-            path: path.join(__dirname, 'build', 'manifest-[name].json'),
+            path: path.join(__dirname, 'dll', 'manifest-[name].json'),
             /**
              * name
              * dll bundle 输出到那个全局变量上

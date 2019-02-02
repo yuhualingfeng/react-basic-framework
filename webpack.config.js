@@ -4,7 +4,7 @@ var webpack = require('webpack');
 
 module.exports = {
 	entry:{
-		app:['react-hot-loader/patch','whatwg-fetch','./entry/app.js']
+		app:['react-hot-loader/patch','whatwg-fetch','./index.js']
 	},
 	output:{
 		path:path.join(__dirname,'build'),

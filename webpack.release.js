@@ -7,6 +7,11 @@ var jquery = require('jquery/dist/jquery.js');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let extractCSS = new ExtractTextPlugin('[name]_1.css');
 let extractLESS = new ExtractTextPlugin('[name]_2.css');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+/*********plugins***********/
+const cleanWebpackPlugin = new CleanWebpackPlugin(['dist']);
+/*********plugins***********/
 
 //压缩文件
 var uglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
@@ -27,12 +32,12 @@ var definePlugin = new webpack.DefinePlugin({
 module.exports = {
     //页面入口文件配置
     entry: {
-       app:['./entry/app.js']
+       app:['./src/index.js']
     },
     //入口文件输出配置
     output: {
-        path: path.join(__dirname, 'build'),//文件的绝对路径
-        publicPath: './build/',//访问路径
+        path: path.join(__dirname, 'dist'),//文件的绝对路径
+        publicPath: './dist/',//访问路径
         filename: '[name].js',//输出的文件名
         chunkFilename: "[id].chunk.js?[chunkhash]"
     },
@@ -40,7 +45,7 @@ module.exports = {
         alias: {
             'util': path.resolve(//path.resolve,把当前位置转换为绝对位置
                 __dirname,
-                './components/common/util'
+                './src/components/common/util'
             )
         }
     },
@@ -74,6 +79,7 @@ module.exports = {
     },
     //插件配置
     plugins: [
+        cleanWebpackPlugin,
         extractCSS,
         extractLESS,
         new WebpackMd5Hash(),
@@ -103,23 +109,23 @@ module.exports = {
         }),//
         new webpack.DllReferencePlugin({
             context: __dirname,
-            manifest: require('./build/manifest-bootstrap.json'),
+            manifest: require('./dll/manifest-bootstrap.json'),
         }),
         new webpack.DllReferencePlugin({
             context: __dirname,
-            manifest: require('./build/manifest-echarts.json'),
+            manifest: require('./dll/manifest-echarts.json'),
         }),
         new webpack.DllReferencePlugin({
             context: __dirname,
-            manifest: require('./build/manifest-jquery.json'),
+            manifest: require('./dll/manifest-jquery.json'),
         }),
         new webpack.DllReferencePlugin({
             context: __dirname,
-            manifest: require('./build/manifest-react.json'),
+            manifest: require('./dll/manifest-react.json'),
         }),
         new webpack.DllReferencePlugin({
             context: __dirname,
-            manifest: require('./build/manifest-redux.json'),
+            manifest: require('./dll/manifest-redux.json'),
         }),
         uglifyJsPlugin,//压缩文件
         definePlugin,//上面压缩文件会产生警告，这个消除警告
