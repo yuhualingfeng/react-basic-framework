@@ -27,7 +27,7 @@ class Demo extends React.Component{
 	render(){
 		return(
 			<div>
-			my demo12dddsssd12 {util['name']}
+			my  {util['name']}
 			<Link to="/demo1">demo1</Link>
 			</div>
 			);
