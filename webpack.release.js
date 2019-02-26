@@ -28,7 +28,7 @@ const babelLoader = {
     //exclude:/node_modules/,//排除某个文件的
     include: __dirname,
     query: {
-        "presets": ["react", "es2015"]
+        "presets": ["react", "env"]
     }
 };
 
@@ -61,7 +61,7 @@ const webpackMd5Hash = new WebpackMd5Hash();
 
 const htmlWebpackPlugin = new HtmlWebpackPlugin(
     {
-        title:"LEAP Lenovo Enterprise Analytics Platform",
+        title:"react-app",
         filename: '../index.html',
         template: './template.html',
         favicon:"./favicon.ico",
@@ -115,7 +115,7 @@ module.exports = {
     },
     module: {
         //加载器配置
-        loaders: [
+        rules: [
             cssLoader,
             lessLoader,
             babelLoader,

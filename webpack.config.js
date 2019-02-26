@@ -9,7 +9,7 @@ const babelLoader = {
     exclude: /node_modules/,
     include: __dirname,
     query: {
-        "presets": ["react", "es2015"]
+        "presets": ["react", "env"]
     }
 
 };
@@ -49,7 +49,7 @@ const providerPlugin = new webpack.ProvidePlugin({
 
 module.exports = {
 	entry:{
-		app:['react-hot-loader/patch','whatwg-fetch','./src/index.js']
+		app:['whatwg-fetch','./src/index.js']
 	},
 	output:{
 		path:path.join(__dirname,'build'),
@@ -65,7 +65,7 @@ module.exports = {
         }
     },
 	module:{
-		loaders:[
+		rules:[
 			babelLoader,
             lessLoader,
             cssLoader,
