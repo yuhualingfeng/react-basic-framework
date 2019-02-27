@@ -13,28 +13,28 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const cssLoader = {
     test: /\.css$/,
-    loader:  extractCSS.extract(['css'])
+    use:  extractCSS.extract(['css-loader'])
 };
 
 const lessLoader = {
     test: /\.less$/i,
-    loader: extractLESS.extract(['css','less'])
+    use: extractLESS.extract(['css-loader','less-loader'])
 };
 
 const babelLoader = {
     test: /\.js$/,
-    loader: 'babel-loader',//这样的话就可以不要.babelrc的配置文件
-    exclude: /(node_modules|bower_components)/,
-    //exclude:/node_modules/,//排除某个文件的
-    include: __dirname,
-    query: {
-        "presets": ["react", "env"]
+    exclude: /node_modules/,
+    use: {
+        loader: 'babel-loader',
+        options: {
+            presets: ['react', 'env']
+        }
     }
 };
 
 const fileLoader = {
     test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)$/,
-    loader: 'file-loader?publicPath=./'
+    use: 'file-loader?publicPath=./'
 };
 
 /*********loaders***********/

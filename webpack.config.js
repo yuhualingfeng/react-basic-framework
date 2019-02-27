@@ -5,30 +5,30 @@ const webpack = require('webpack');
 /*********loaders***********/
 const babelLoader = {
     test: /\.js$/,
-    loader: 'babel-loader',//这样的话就可以不要.babelrc的配置文件
     exclude: /node_modules/,
-    include: __dirname,
-    query: {
-        "presets": ["react", "env"]
+    use: {
+        loader: 'babel-loader',
+        options: {
+            presets: ['react', 'env']
+        }
     }
-
 };
 
 const lessLoader = {
     test: /\.less$/,
-    loaders: ["style", "css?sourceMap", "less?sourceMap"],
+    use: ["style-loader", "css-loader", "less-loader"],
     exclude: /node_modules/,
 };
 
 const cssLoader = {
     test: /\.css$/,
-    loaders: ["style", "css?sourceMap"],
-    //exclude:/node_modules/,
+    use: ["style-loader", "css-loader"],
+    exclude:/node_modules/,
 };
 
 const urlLoader = {
     test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
-    loader: 'url-loader?limit=8192'
+    use: 'url-loader?limit=8192'
 };
 
 /*********loaders***********/
