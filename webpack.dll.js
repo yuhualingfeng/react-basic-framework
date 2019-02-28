@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const AssetsPlugin = require('assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 /*********loaders***********/
@@ -8,14 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 /*********loaders***********/
 
 /*********plugins***********/
-var uglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
-    compress: {
-        warnings: false
-    },
-    output: {
-        comments: false,
-    }
-});
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 var definePlugin = new webpack.DefinePlugin({
     "process.env": {
         NODE_ENV: JSON.stringify("production")
@@ -41,12 +33,7 @@ const htmlWebpackPlugin = new HtmlWebpackPlugin(
         template: './template-dll.html',
         favicon:"./favicon.ico",
         hash: true,
-        chunks:["jquery","react","echarts","bootstrap","redux"],
-        /*chunksSortMode:"dependency",*/
-
-       /* files: {
-            "js": [ "./build/dll.react.js","./build/dll.bootstrap.js", "./build/dll.echarts.js","./build/dll.react.js","./build/dll.redux.js"],
-        }*/
+        chunks:["jquery","react","echarts","bootstrap","redux"]
     }
 );
 
@@ -56,7 +43,7 @@ const htmlWebpackPlugin = new HtmlWebpackPlugin(
 module.exports = {
     entry: {
         jquery:["jquery"],
-        react:["react","react-dom","react-router"],
+        react:["react","react-dom","react-router-dom"],
         echarts:["echarts"],
         bootstrap:["bootstrap","bootstrap-datepicker"],
         redux:["react-redux","redux"]
@@ -72,11 +59,14 @@ module.exports = {
          */
         library: '[name]'
     },
+    optimization: {
+        minimizer: [new UglifyJsPlugin()],
+    },
     plugins: [
         providePlugin,
         dllPlugin,
         htmlWebpackPlugin,
-        uglifyJsPlugin,//压缩文件
-        definePlugin//上面压缩文件会产生警告，这个消除警告
-    ]
+        definePlugin //上面压缩文件会产生警告，这个消除警告
+    ],
+    mode:'production'
 };

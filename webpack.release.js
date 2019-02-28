@@ -3,22 +3,31 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
 const path = require('path');
 const webpack = require('webpack');
-const jquery = require('jquery/dist/jquery.js');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const extractCSS = new ExtractTextPlugin('[name]_1.css');
-const extractLESS = new ExtractTextPlugin('[name]_2.css');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 /*********loaders***********/
 
 const cssLoader = {
     test: /\.css$/,
-    use:  extractCSS.extract(['css-loader'])
+    use:  [
+        MiniCssExtractPlugin.loader,
+        'css-loader'
+    ]
 };
 
 const lessLoader = {
     test: /\.less$/i,
-    use: extractLESS.extract(['css-loader','less-loader'])
+    use: [
+        MiniCssExtractPlugin.loader,
+        'css-loader',
+        {
+            loader: 'postcss-loader',
+            options:{
+                        plugins:[require("autoprefixer")("last 100 versions")]
+                    }
+        },
+        'less-loader']
 };
 
 const babelLoader = {
@@ -27,7 +36,8 @@ const babelLoader = {
     use: {
         loader: 'babel-loader',
         options: {
-            presets: ['react', 'env']
+            presets: ['@babel/preset-react', '@babel/preset-env'],
+            plugins: ["dynamic-import-webpack"]
         }
     }
 };
@@ -42,13 +52,10 @@ const fileLoader = {
 /*********plugins***********/
 const cleanWebpackPlugin = new CleanWebpackPlugin(['dist']);
 
-const uglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
-    compress: {
-        warnings: false
-    },
-    output: {
-        comments: false,
-    }
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const miniCssExtractPlugin = new MiniCssExtractPlugin({
+    filename: "[name].css",
+    chunkFilename: "[id].css"
 });
 
 const definePlugin = new webpack.DefinePlugin({
@@ -61,16 +68,9 @@ const webpackMd5Hash = new WebpackMd5Hash();
 
 const htmlWebpackPlugin = new HtmlWebpackPlugin(
     {
-        title:"react-app",
         filename: '../index.html',
         template: './template.html',
-        favicon:"./favicon.ico",
         hash: true,
-         //chunks:["jquery","react","echarts","bootstrap","redux","app"],
-        chunksSortMode:"dependency",
-       /* files: {
-            "js": [ "./build/dll.react.js","./build/dll.bootstrap.js", "./build/dll.echarts.js","./build/dll.react.js","./build/dll.redux.js"],
-        }*/
     }
 );
 
@@ -103,7 +103,10 @@ module.exports = {
         path: path.join(__dirname, 'dist'),//文件的绝对路径
         publicPath: './dist/',//访问路径
         filename: '[name].js',//输出的文件名
-        chunkFilename: "[id].chunk.js?[chunkhash]"
+        chunkFilename: "[id].[name].chunk.js"
+    },
+    optimization: {
+        minimizer: [new UglifyJsPlugin()],
     },
     resolve: {
         alias: {
@@ -126,12 +129,10 @@ module.exports = {
     //插件配置
     plugins: [
         cleanWebpackPlugin,
-        extractCSS,
-        extractLESS,
-        webpackMd5Hash,
         htmlWebpackPlugin,
         providePlugin,
-        uglifyJsPlugin,
         definePlugin,
-    ].concat(dllReferencePlugins)
+        miniCssExtractPlugin
+    ].concat(dllReferencePlugins),
+    mode:'production'
 }
