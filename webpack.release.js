@@ -5,6 +5,7 @@ const path = require('path');
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WebpackManifestPlugin = require('webpack-manifest-plugin');
 
 /*********loaders***********/
 
@@ -37,7 +38,7 @@ const babelLoader = {
         loader: 'babel-loader',
         options: {
             presets: ['@babel/preset-react', '@babel/preset-env'],
-            plugins: ["dynamic-import-webpack"]
+            plugins: ["syntax-dynamic-import"]
         }
     }
 };
@@ -57,6 +58,8 @@ const miniCssExtractPlugin = new MiniCssExtractPlugin({
     filename: "[name].css",
     chunkFilename: "[id].css"
 });
+
+const webpackManifestPlugin = new WebpackManifestPlugin();
 
 const definePlugin = new webpack.DefinePlugin({
     "process.env": {
@@ -103,10 +106,10 @@ module.exports = {
         path: path.join(__dirname, 'dist'),//文件的绝对路径
         publicPath: './dist/',//访问路径
         filename: '[name].js',//输出的文件名
-        chunkFilename: "[id].[name].chunk.js"
+        chunkFilename: "[name].chunk.js"
     },
     optimization: {
-        minimizer: [new UglifyJsPlugin()],
+        minimizer: [],
     },
     resolve: {
         alias: {
@@ -130,6 +133,7 @@ module.exports = {
     plugins: [
         cleanWebpackPlugin,
         htmlWebpackPlugin,
+        webpackManifestPlugin,
         providePlugin,
         definePlugin,
         miniCssExtractPlugin

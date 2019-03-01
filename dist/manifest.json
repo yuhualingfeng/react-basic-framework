@@ -1,0 +1,8 @@
+{
+  "Demo.js": "./dist/Demo.chunk.js",
+  "Demo1.js": "./dist/Demo1.chunk.js",
+  "app.css": "./dist/app.css",
+  "app.js": "./dist/app.js",
+  "../index.html": "./dist/../index.html",
+  "bootstrap.min.css": "./dist/fa2772327f55d8198301fdb8bcfc8158.woff"
+}

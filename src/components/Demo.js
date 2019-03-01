@@ -1,5 +1,4 @@
 import {Link} from 'react-router-dom'
-import '../css/common.less';
 class Demo extends React.Component{
 	constructor(props){
 		super(props);

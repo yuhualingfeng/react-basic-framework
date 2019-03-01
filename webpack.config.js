@@ -10,7 +10,7 @@ const babelLoader = {
         loader: 'babel-loader',
         options: {
             presets: ['@babel/preset-react', '@babel/preset-env'],
-            plugins: ["dynamic-import-webpack"]
+            plugins: ["syntax-dynamic-import"]
         }
     }
 };
@@ -65,7 +65,8 @@ module.exports = {
 	output:{
 		path:path.join(__dirname,'dist'),
 		filename:'[name].js',
-        publicPath:'http://localhost:8082/'
+        publicPath:'http://localhost:8082/',
+        chunkFilename:'[id].[name].chunk.js'
 	},
     resolve: {
         alias: {

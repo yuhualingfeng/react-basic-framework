@@ -6,20 +6,13 @@ import reducer from './redux/reducers'
 import Main from './components/Main'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import './css/common.less';
 
 $(function(){
 
 
 let store = createStore(reducer);
 
-// if (module.hot) {
-//     // Enable Webpack hot module replacement for reducers
-//     module.hot.accept('../redux/reducers', () => {
-//       const nextRootReducer = require('../redux/reducers');
-//       store.replaceReducer(nextRootReducer);
-//     });
-// }
 
 const Routes = (<div>
 	<Switch>
