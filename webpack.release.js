@@ -87,7 +87,7 @@ const providePlugin = new webpack.ProvidePlugin({
     util:'util'
 });
 
-const dlllibs = ['bootstrap', 'jquery', 'react', 'redux','echarts'];
+const dlllibs = ['bootstrap', 'jquery', 'react', 'redux','echarts','fetch'];
 const dllReferencePlugins = dlllibs.map((item) => {
     return new webpack.DllReferencePlugin({
         context: __dirname,
@@ -109,7 +109,7 @@ module.exports = {
         chunkFilename: "[name].chunk.js"
     },
     optimization: {
-        minimizer: [],
+        minimizer: [new UglifyJsPlugin()],
     },
     resolve: {
         alias: {
