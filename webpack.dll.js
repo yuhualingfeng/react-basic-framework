@@ -33,7 +33,7 @@ const htmlWebpackPlugin = new HtmlWebpackPlugin(
         template: './template-dll.html',
         favicon:"./favicon.ico",
         hash: true,
-        chunks:["jquery","react","echarts","bootstrap","redux",'fetch']
+        chunks:["jquery","react","echarts","bootstrap","redux"]
     }
 );
 
@@ -46,8 +46,7 @@ module.exports = {
         react:["react","react-dom","react-router-dom"],
         echarts:["echarts"],
         bootstrap:["bootstrap","bootstrap-datepicker"],
-        redux:["react-redux","redux"],
-        fetch:['whatwg-fetch']
+        redux:["react-redux","redux"]
     },
     output: {
         path: path.join(__dirname, 'dll'),

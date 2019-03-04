@@ -87,7 +87,7 @@ const providePlugin = new webpack.ProvidePlugin({
     util:'util'
 });
 
-const dlllibs = ['bootstrap', 'jquery', 'react', 'redux','echarts','fetch'];
+const dlllibs = ['bootstrap', 'jquery', 'react', 'redux','echarts'];
 const dllReferencePlugins = dlllibs.map((item) => {
     return new webpack.DllReferencePlugin({
         context: __dirname,
@@ -99,7 +99,7 @@ const dllReferencePlugins = dlllibs.map((item) => {
 module.exports = {
     //页面入口文件配置
     entry: {
-       app:['./src/index.js']
+       app:['whatwg-fetch','./src/index.js']
     },
     //入口文件输出配置
     output: {
@@ -109,7 +109,7 @@ module.exports = {
         chunkFilename: "[name].chunk.js"
     },
     optimization: {
-        minimizer: [new UglifyJsPlugin()],
+        minimizer: [],
     },
     resolve: {
         alias: {
@@ -135,7 +135,7 @@ module.exports = {
         htmlWebpackPlugin,
         webpackManifestPlugin,
         providePlugin,
-        definePlugin,
+        // definePlugin,
         miniCssExtractPlugin
     ].concat(dllReferencePlugins),
     mode:'production'
