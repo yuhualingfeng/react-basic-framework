@@ -10,7 +10,7 @@ const babelLoader = {
         loader: 'babel-loader',
         options: {
             presets: ['@babel/preset-react', '@babel/preset-env'],
-            plugins: ["syntax-dynamic-import"]
+            plugins: ["@babel/plugin-syntax-dynamic-import","@babel/plugin-transform-runtime"]
         }
     }
 };

@@ -1,7 +1,7 @@
 
 import { combineReducers } from 'redux'
 import i18nJson from '../components/common/i18n.js'
-import Cookies from '../components/common/Cookies'
+import '../components/common/Cookies'
 
 // 语言切换
 let language = navigator.language || navigator.browserLanguage;

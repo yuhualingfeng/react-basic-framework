@@ -5,8 +5,11 @@ class Demo extends React.Component{
 
 	}
 	componentDidMount(){
-		fetch('/package.json')
-		  .then(function(response) {
+		async function f(){
+			let a =  await fetch('/package.json');
+			return a;
+		}
+		f().then(function(response) {
 		    return response.json()
 		  }).then(function(json) {
 		    console.log('parsed json', json)
