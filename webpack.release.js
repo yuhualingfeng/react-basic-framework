@@ -1,6 +1,5 @@
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackMd5Hash = require('webpack-md5-hash');
 const path = require('path');
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -66,8 +65,6 @@ const definePlugin = new webpack.DefinePlugin({
         NODE_ENV: JSON.stringify("production")
     }
 });
-
-const webpackMd5Hash = new WebpackMd5Hash();
 
 const htmlWebpackPlugin = new HtmlWebpackPlugin(
     {
