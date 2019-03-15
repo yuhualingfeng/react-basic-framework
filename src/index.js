@@ -1,8 +1,10 @@
 import {render} from 'react-dom'
 import {Route, BrowserRouter,HashRouter,Switch,Redirect,Link} from 'react-router-dom'
 import {Provider} from 'react-redux'
-import {createStore} from 'redux'
+import {createStore,applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
 import reducer from './redux/reducers'
+import mySaga from './redux/sagas'
 import Main from './components/Main'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,8 +12,9 @@ import './css/common.less';
 
 $(function(){
 
-
-let store = createStore(reducer);
+const sagaMiddleware = createSagaMiddleware();
+let store = createStore(reducer,applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(mySaga);
 
 
 const Routes = (<div>

@@ -38,6 +38,19 @@ function i18n(state=languageJson,action){
 	return state;
 }
 
+function users(state={},action){
+	debugger;
+	if(action.type == 'USER_FETCH_SUCCEEDED'){
+		return action.user;
+	}else if(action.type === 'USER_FETCH_FAILED'){
+		return state;
+	}else{
+		return state;
+	}
+}
+
+
 export default combineReducers({
-	i18n
+	i18n,
+	users
 })

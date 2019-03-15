@@ -10,7 +10,10 @@ class Main extends React.Component {
 	constructor(props){
 		super(props);
 	}
-
+	componentDidMount(){
+		const {dispatch} = this.props;
+		dispatch({type: 'USER_FETCH_REQUESTED', payload: {userId:1}})
+	}
 	render(){
 		let {i18nObj:i18n} = this.props.i18n;
 		return (
@@ -31,10 +34,16 @@ class Main extends React.Component {
 
 
 
-let mapStateToProps = (state,ownProps)=>{
+const mapStateToProps = (state,ownProps)=>{
 	return {
 		i18n:state.i18n
 	}
+}
+
+const mapDispatchToProps = (dispatch,ownProps)=>{
+	return {
+
+	};
 }
 
 export default ReactRedux.connect(mapStateToProps)(Main)
