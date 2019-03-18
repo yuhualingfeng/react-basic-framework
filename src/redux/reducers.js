@@ -39,7 +39,8 @@ function i18n(state=languageJson,action){
 }
 
 function users(state={},action){
-	debugger;
+	// debugger;
+	console.log(action.type);
 	if(action.type == 'USER_FETCH_SUCCEEDED'){
 		return action.user;
 	}else if(action.type === 'USER_FETCH_FAILED'){
