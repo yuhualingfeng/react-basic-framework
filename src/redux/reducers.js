@@ -38,20 +38,30 @@ function i18n(state=languageJson,action){
 	return state;
 }
 
-function users(state={},action){
-	// debugger;
-	console.log(action.type);
-	if(action.type == 'USER_FETCH_SUCCEEDED'){
-		return action.user;
-	}else if(action.type === 'USER_FETCH_FAILED'){
+function configFile(state={},action){
+	if(action.type == 'FETCH_CONFIG_FILE_SUCCEEDED'){
+		return {result:action.result};
+	}else if(action.type === 'FETCH_CONFIG_FILE_FAILD'){
+		return {message:action.message};
+	}else{
 		return state;
+	}
+}
+
+function github(state={},action){
+	if(action.type == 'FETCH_GITHUB_SUCCEEDED'){
+		return {result:action.result};
+	}else if(action.type === 'FETCH_GITHUB_FAILD'){
+		return {message:action.message};
 	}else{
 		return state;
 	}
 }
 
 
+
 export default combineReducers({
 	i18n,
-	users
+	configFile,
+	github
 })

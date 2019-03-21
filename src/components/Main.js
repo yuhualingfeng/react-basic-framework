@@ -11,8 +11,7 @@ class Main extends React.Component {
 		super(props);
 	}
 	componentDidMount(){
-		const {dispatch} = this.props;
-		dispatch({type: 'USER_FETCH_REQUESTED', payload: {userId:1}})
+		
 	}
 	render(){
 		let {i18nObj:i18n} = this.props.i18n;
