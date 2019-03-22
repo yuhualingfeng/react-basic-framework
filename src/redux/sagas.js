@@ -1,4 +1,4 @@
-import {call,put,all,select,takeEvery,takeLatest} from 'redux-saga/effects';
+import {call,put,all,select,takeEvery,takeLatest,take} from 'redux-saga/effects';
 
 function* fetchConfigFile(action) {
    try {
@@ -14,13 +14,8 @@ function* fetchConfigFile(action) {
 
 function* fetchConfigFileSaga() {
     yield takeLatest("FETCH_CONFIG_FILE_REQUESTED", fetchConfigFile);
-    yield takeEvery('*', function* logger(action) {
-      const state = yield select()
-  
-      console.log('action', action)
-      console.log('state after', state)
-    })
-
+    console.log('fetchConfigFileSaga');
+    
 }
 
 function* fetchGithub(action) {
@@ -36,7 +31,8 @@ function* fetchGithub(action) {
 }
 
 function* fetchGithubSaga(){
-   yield takeLatest("FETCH_GITHUB_REQUESTED",fetchGithub);
+   const result = yield takeLatest("FETCH_GITHUB_REQUESTED",fetchGithub);
+   console.log(result);
 
 }
 
@@ -44,6 +40,17 @@ function* delayTimeSaga(){
    const delay = (ms) => new Promise((resolve,reject) => setTimeout(()=>resolve(1000), ms));
    const delayResult = yield delay(3000);
    console.log(delayResult);
+   console.log('delayTimeSaga');
+}
+
+function* watchAndLog(){
+   yield takeEvery('*', function* logger(action) {
+      const state = yield select()
+  
+      console.log('action', action)
+      console.log('state after', state)
+   });
+   console.log('watchAndLog');
 }
 
 
@@ -51,7 +58,8 @@ function* rootSaga(){
    yield all([
      fetchConfigFileSaga(),
      delayTimeSaga(),
-     fetchGithubSaga()
+     fetchGithubSaga(),
+     watchAndLog()
    ]);
 }
   
