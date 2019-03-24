@@ -65,4 +65,4 @@ function* rootSaga(){
   
   export default rootSaga;
 
-  // saga是一个Generator函数,
+  // saga是一个Generator函数,effect是一个普通的javascript对象
