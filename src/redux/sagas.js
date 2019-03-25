@@ -1,66 +1,68 @@
 import {call,put,all,select,takeEvery,takeLatest,take} from 'redux-saga/effects';
+import configs from './config'; 
+import doFetch from './fetch';
 
-function* fetchConfigFile(action) {
-   try {
 
-      const result = yield call(fetch,'./package.json');
-
-   yield put({type: "FETCH_CONFIG_FILE_SUCCEEDED", result:result.json()});
-      
-   } catch (e) {
-      yield put({type: "FETCH_CONFIG_FILE_FAILED", message: e.message});
-   }
-}
-
-function* fetchConfigFileSaga() {
-    yield takeLatest("FETCH_CONFIG_FILE_REQUESTED", fetchConfigFile);
-    console.log('fetchConfigFileSaga');
-    
-}
-
-function* fetchGithub(action) {
-   try {
-
-      const result = yield call(fetch,'https://api.github.com/users/yuhualingfeng');
-
-   yield put({type: "FETCH_GITHUB_SUCCEEDED", result:result.json()});
-      
-   } catch (e) {
-      yield put({type: "FETCH_GITHUB_FAILED", message: e.message});
-   }
-}
-
-function* fetchGithubSaga(){
-   const result = yield takeLatest("FETCH_GITHUB_REQUESTED",fetchGithub);
-   console.log(result);
-
-}
-
+/**
+ * 延时demo
+ */
 function* delayTimeSaga(){
    const delay = (ms) => new Promise((resolve,reject) => setTimeout(()=>resolve(1000), ms));
    const delayResult = yield delay(3000);
-   console.log(delayResult);
-   console.log('delayTimeSaga');
+   return delayResult;
 }
 
+/**
+ * action日志监控
+ */
 function* watchAndLog(){
    yield takeEvery('*', function* logger(action) {
-      const state = yield select()
-  
-      console.log('action', action)
-      console.log('state after', state)
+      const state = yield select();
+      //console.log('action', action);
+      //console.log('state after', state);
    });
-   console.log('watchAndLog');
+   return 1;
 }
 
+/**
+ * saga生成器
+ * @param {*} config 
+ * config.name
+ * config.url
+ * config.option
+ */
+function sagaCreator(config){
+   const {name,url,option} = config;
+   return function* (action) {
+      try {
+         yield put({type: "FETCH_"+name+"_LOADING"});
+         const result = yield call(doFetch,url,option);
+         yield put({type: "FETCH_"+name+"_SUCCEEDED", result});
+         
+      } catch (e) {
+         yield put({type: "FETCH_"+name+"_FAILED", message: e.message});
+      }
+   };
+}
+
+/**
+ * 异步请求列表
+ */
+function* fetchList(){
+   for(var i in configs){
+      let config = configs[i];
+      yield takeLatest("FETCH_"+config.name+"_REQUESTED",sagaCreator(config));
+   }
+
+}
 
 function* rootSaga(){
-   yield all([
-     fetchConfigFileSaga(),
+  const result =  yield all([
+     fetchList(),
      delayTimeSaga(),
-     fetchGithubSaga(),
      watchAndLog()
    ]);
+   console.log(result);
 }
   
   export default rootSaga;
