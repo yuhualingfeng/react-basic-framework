@@ -28,7 +28,7 @@ class App extends React.Component{
 	render(){
 		return (
 				<Provider store={store}>
-					<HashRouter>{Routes}</HashRouter>
+					<BrowserRouter>{Routes}</BrowserRouter>
 				</Provider>
 			);
 	}

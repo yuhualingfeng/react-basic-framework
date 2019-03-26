@@ -13,10 +13,11 @@ class Demo extends React.Component{
 		dispatch({type: 'FETCH_GITHUB_REQUESTED'});		
 	}
 	render(){
+		let {github,configFile} = this.props;
 		return(
 			<div>
 			my  {util['name']}
-			<div onClick={this.request}>请求数据</div>
+			<div onClick={this.request}>点击请求数据{github.state}{configFile.state}</div>
 			<Link to="/demo1">demo1</Link>
 			</div>
 			);
