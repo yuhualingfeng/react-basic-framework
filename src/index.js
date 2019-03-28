@@ -10,6 +10,8 @@ import Main from './components/Main'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/common.less';
 
+
+
 $(function(){
 
 const sagaMiddleware = createSagaMiddleware();
@@ -39,6 +41,8 @@ render(
 	,document.getElementById('root'));
 
 });
+
+
 
 if (module.hot) {
     // Enable Webpack hot module replacement for reducers

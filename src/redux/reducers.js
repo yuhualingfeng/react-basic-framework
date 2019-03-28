@@ -3,7 +3,6 @@ import { combineReducers } from 'redux';
 import i18nJson from '../components/common/i18n.js';
 import '../components/common/Cookies';
 import configs from './config'; 
-import { red } from 'ansi-colors';
 
 /*************************语言切换****************************/
 let language = navigator.language || navigator.browserLanguage;

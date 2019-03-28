@@ -46,7 +46,7 @@ module.exports = {
         react:["react","react-dom","react-router-dom"],
         echarts:["echarts"],
         bootstrap:["bootstrap","bootstrap-datepicker"],
-        redux:["react-redux","redux"]
+        redux:["react-redux","redux","redux-saga","redux-saga/effects"]
     },
     output: {
         path: path.join(__dirname, 'dll'),
@@ -60,7 +60,7 @@ module.exports = {
         library: '[name]'
     },
     optimization: {
-        minimizer: [new UglifyJsPlugin()],
+       minimizer: [new UglifyJsPlugin()],
     },
     plugins: [
         providePlugin,

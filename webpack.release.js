@@ -4,6 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const WebpackManifestPlugin = require('webpack-manifest-plugin');
 
 /*********loaders***********/
@@ -37,7 +38,7 @@ const babelLoader = {
         loader: 'babel-loader',
         options: {
             presets: ['@babel/preset-react', '@babel/preset-env'],
-            plugins: ["@babel/plugin-syntax-dynamic-import","@babel/plugin-transform-runtime"]
+            plugins: ["@babel/plugin-syntax-dynamic-import","@babel/plugin-transform-runtime","@babel/plugin-transform-object-assign"]
         }
     }
 };
@@ -96,7 +97,7 @@ const dllReferencePlugins = dlllibs.map((item) => {
 module.exports = {
     //页面入口文件配置
     entry: {
-       app:['whatwg-fetch','./src/index.js']
+       app:['babel-polyfill','whatwg-fetch','./src/index.js']
     },
     //入口文件输出配置
     output: {
@@ -106,7 +107,9 @@ module.exports = {
         chunkFilename: "[name].chunk.js"
     },
     optimization: {
-        minimizer: [],
+       minimizer: [
+           new UglifyJsPlugin(),new OptimizeCSSPlugin()
+        ],
     },
     resolve: {
         alias: {
