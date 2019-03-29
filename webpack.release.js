@@ -38,7 +38,16 @@ const babelLoader = {
         loader: 'babel-loader',
         options: {
             presets: ['@babel/preset-react', '@babel/preset-env'],
-            plugins: ["@babel/plugin-syntax-dynamic-import","@babel/plugin-transform-runtime","@babel/plugin-transform-object-assign"]
+            plugins: [
+                "@babel/plugin-syntax-dynamic-import",
+                "@babel/plugin-transform-runtime",
+                "@babel/plugin-transform-object-assign",
+                ["babel-plugin-import", {
+                    "libraryName": "antd",
+                    "libraryDirectory": "es",
+                    "style": "css" // `style: true` 会加载 less 文件
+                  }]
+            ]
         }
     }
 };
@@ -97,7 +106,7 @@ const dllReferencePlugins = dlllibs.map((item) => {
 module.exports = {
     //页面入口文件配置
     entry: {
-       app:['babel-polyfill','whatwg-fetch','./src/index.js']
+       app:['@babel/polyfill','whatwg-fetch','./src/index.js']
     },
     //入口文件输出配置
     output: {

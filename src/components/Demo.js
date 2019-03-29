@@ -1,6 +1,5 @@
 import {Link} from 'react-router-dom'
-
-
+import {Button,Row,Col} from 'antd';
 class Demo extends React.Component{
 	constructor(props){
 		super(props);
@@ -21,6 +20,24 @@ class Demo extends React.Component{
 			my  {util['name']}
 			<div onClick={this.request}>点击请求数据{github.state}{configFile.state}</div>
 			<Link to="/demo1">demo1</Link>
+			<Button type="primary">Primary</Button>
+			<div>
+				<Row>
+				<Col span={12}>col-12</Col>
+				<Col span={12}>col-12</Col>
+				</Row>
+				<Row>
+				<Col span={8}>col-8</Col>
+				<Col span={8}>col-8</Col>
+				<Col span={8}>col-8</Col>
+				</Row>
+				<Row>
+				<Col span={6}>col-6</Col>
+				<Col span={6}>col-6</Col>
+				<Col span={6}>col-6</Col>
+				<Col span={6}>col-6</Col>
+				</Row>
+			</div>
 			</div>
 			);
 	}

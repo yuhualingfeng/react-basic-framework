@@ -17,8 +17,8 @@
     "proejct-build"
   ],
   "dependencies": {
+    "@babel/polyfill": "^7.4.0",
     "antd": "^3.15.2",
-    "babel-polyfill": "^6.26.0",
     "bootstrap": "^3.3.7",
     "bootstrap-datepicker": "^1.6.4",
     "echarts": "^3.3.2",
@@ -43,6 +43,7 @@
     "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^9.4.9",
     "babel-loader": "^8.0.5",
+    "babel-plugin-import": "^1.11.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "clean-webpack-plugin": "^1.0.1",
     "css-loader": "^0.25.0",

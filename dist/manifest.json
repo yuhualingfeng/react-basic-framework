@@ -1,4 +1,6 @@
 {
+  "vendors~Demo~Demo1.css": "./dist/0.css",
+  "vendors~Demo~Demo1.js": "./dist/vendors~Demo~Demo1.chunk.js",
   "Demo.js": "./dist/Demo.chunk.js",
   "Demo1.js": "./dist/Demo1.chunk.js",
   "app.css": "./dist/app.css",
