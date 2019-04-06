@@ -10,7 +10,16 @@ const babelLoader = {
         loader: 'babel-loader',
         options: {
             presets: ['@babel/preset-react', '@babel/preset-env'],
-            plugins: ["@babel/plugin-syntax-dynamic-import","@babel/plugin-transform-runtime"]
+            plugins: [
+                "@babel/plugin-syntax-dynamic-import",
+                "@babel/plugin-transform-runtime",
+                "@babel/plugin-transform-object-assign",
+                ["babel-plugin-import", {
+                    "libraryName": "antd",
+                    "libraryDirectory": "es",
+                    "style": "css" // `style: true` 会加载 less 文件
+                  }]
+            ]
         }
     }
 };

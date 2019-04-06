@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom'
 import {Button,Row,Col} from 'antd';
+import 'antd/dist/antd.css';
 class Demo extends React.Component{
 	constructor(props){
 		super(props);
