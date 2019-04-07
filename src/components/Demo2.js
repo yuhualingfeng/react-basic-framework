@@ -33,6 +33,7 @@ class Demo extends React.Component{
             ]
         };
         this.getElements = this.getElements.bind(this);
+        this.slideUpDown = this.slideUpDown.bind(this);
         
 	}
 	componentDidMount(){
@@ -40,11 +41,44 @@ class Demo extends React.Component{
     }
     getElements(){
         let {tree} = this.state;
-        let elements = tree.map((item,key)=>{
-            return (<div key={key}>{item.id}</div>);
-        });
-        return elements;
+        let that = this;
+        function getEle(nodes){
+            let elements = nodes.map((item,key)=>{
+                // let hasChild = !util.isNull(item.children);
+                let hasChild = !!item.children;
+                let symbol = hasChild ? (item.slideDown?'-':'+'):'';
+                let treeList = hasChild ? (<div className={`tree-list${item.slideDown?'':' hide'}`} style={{paddingLeft:20}}>{getEle(item.children)}</div>):null;
+                return (<div key={key}>
+                        <div className='tree-title' onClick={()=>that.slideUpDown(item.id)}>{symbol}{item.id}</div>
+                        {treeList}
+                    </div>);
+            });
+            return elements;            
+        }
 
+        return getEle(tree);
+    }
+    slideUpDown(id){
+        let {tree} = this.state;
+        function FindItem(nodes){
+            for(let i in nodes){
+                let item = nodes[i];
+                let hasChild = !!item.children;
+                if(item.id === id){
+                    item.slideDown = !item.slideDown;
+                    break;
+                }else{
+                    if(hasChild){
+                        FindItem(item.children);
+                    }
+                }
+            }
+            
+
+        }
+
+        FindItem(tree);
+        this.setState({tree});
     }
 
 	render(){
