@@ -59,9 +59,9 @@ module.exports = {
          */
         library: '[name]'
     },
-    optimization: {
-       minimizer: [new UglifyJsPlugin()],
-    },
+    // optimization: {
+    //    minimizer: [new UglifyJsPlugin()],
+    // },
     plugins: [
         providePlugin,
         dllPlugin,

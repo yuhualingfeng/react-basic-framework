@@ -115,11 +115,11 @@ module.exports = {
         filename: '[name].js',//输出的文件名
         chunkFilename: "[name].chunk.js"
     },
-    optimization: {
-       minimizer: [
-           new UglifyJsPlugin(),new OptimizeCSSPlugin()
-        ],
-    },
+    // optimization: {
+    //    minimizer: [
+    //        new UglifyJsPlugin(),new OptimizeCSSPlugin()
+    //     ],
+    // },
     resolve: {
         alias: {
             'util': path.resolve(//path.resolve,把当前位置转换为绝对位置

@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const proxy = require('http-proxy-middleware');
-const port = 80
+const port = 81
 const app = express()
 
 // serve static assets normally

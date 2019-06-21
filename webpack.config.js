@@ -74,7 +74,7 @@ module.exports = {
 	output:{
 		path:path.join(__dirname,'dist'),
 		filename:'[name].js',
-        publicPath:'http://localhost:8082/',
+        publicPath:'http://localhost:8083/',
         chunkFilename:'[id].[name].chunk.js'
 	},
     resolve: {
@@ -102,7 +102,7 @@ module.exports = {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "*",
         },
-        port:8082,
+        port:8083,
         hot:true,
         compress:true
     },
