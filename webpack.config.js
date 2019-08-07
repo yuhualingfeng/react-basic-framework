@@ -23,6 +23,15 @@ const babelLoader = {
         }
     }
 };
+const tsLoader = {
+    test: /\.tsx?$/,
+    exclude: /node_modules/,
+    use: {
+        loader: 'ts-loader',
+        options: {
+        }
+    }
+};
 
 const lessLoader = {
     test: /\.less$/,
@@ -87,7 +96,8 @@ module.exports = {
     },
 	module:{
 		rules:[
-			babelLoader,
+            babelLoader,
+            tsLoader,
             lessLoader,
             cssLoader,
             urlLoader
