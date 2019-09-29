@@ -65,7 +65,7 @@ const cleanWebpackPlugin = new CleanWebpackPlugin(['dist']);
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const miniCssExtractPlugin = new MiniCssExtractPlugin({
     filename: "[name].css",
-    chunkFilename: "[id].css"
+    chunkFilename: "[name].css"
 });
 
 const webpackManifestPlugin = new WebpackManifestPlugin();
@@ -115,11 +115,14 @@ module.exports = {
         filename: '[name].js',//输出的文件名
         chunkFilename: "[name].chunk.js"
     },
-    // optimization: {
-    //    minimizer: [
-    //        new UglifyJsPlugin(),new OptimizeCSSPlugin()
-    //     ],
-    // },
+    optimization: {
+       minimize: true,
+       // minimizer覆盖minimize,因为minimize优化只对js文件有效果,css文件并没有被压缩.
+       minimizer: [
+           new UglifyJsPlugin(),
+           new OptimizeCSSPlugin()
+        ],
+    },
     resolve: {
         alias: {
             'util': path.resolve(//path.resolve,把当前位置转换为绝对位置
