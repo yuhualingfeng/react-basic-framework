@@ -16,6 +16,7 @@ const broserHistory = true;
 // var target = 'http://172.17.203.26:8080';//开发环境
 // app.use(['/user-center/'],proxy({target: target, changeOrigin: true}));
 
+
 if(broserHistory)
 app.get('*', function (request, response){
   response.sendFile(path.resolve(__dirname, 'dev.html'))
