@@ -8,10 +8,6 @@
     "release": "webpack --config webpack.dll.js && webpack --config webpack.release.js",
     "server": "node server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://www.github.com/yuhualingfeng/react-basic-framework.git"
-  },
   "keywords": [
     "react",
     "proejct-build"

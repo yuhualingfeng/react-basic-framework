@@ -7,7 +7,7 @@ import reducer from './redux/reducers'
 import mySaga from './redux/sagas'
 import Main from './components/Main'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/common.less';
 
 
@@ -30,7 +30,7 @@ class App extends React.Component{
 	render(){
 		return (
 				<Provider store={store}>
-					<BrowserRouter>{Routes}</BrowserRouter>
+					<HashRouter>{Routes}</HashRouter>
 				</Provider>
 			);
 	}

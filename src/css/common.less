@@ -1,7 +1,59 @@
-body{
-    background:transparent;
-    div{
-        display: block;
-        border-radius: 2px;
-    }
+
+@import 'variables.less';
+/* 滚动条美化(chrome)*/
+::-webkit-scrollbar{ 
+    width: 10px;
+    height: 10px
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: rgba(0,0,0,0.1);
+    //-webkit-box-shadow: inset 0 0 10px rgba(0,0,0,.2)
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.06);
+    -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,.1);
+   // border-radius: 5px
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+.overflow-auto{
+    overflow:auto;
+}
+
+.hide{
+    display: none;
+}
+
+.hide-over{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.over-hide{
+    overflow: hidden;
+}
+.float-left{
+    float:left;
+}
+.float-right{
+    float:right;
+}
+.text-center{
+    text-align: center;
+}
+.text-right{
+    text-align: right;
+}
+.text-left{
+    text-align: left;
+}
+.clearfix::after {
+    display: block;
+    clear: both;
+    content: "";
 }

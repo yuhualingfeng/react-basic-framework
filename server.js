@@ -10,7 +10,7 @@ app.use(express.static(__dirname + '/'))
 // handle every other route with index.html, which will contain
 // a script tag to your application's JavaScript file(s).
 //const broserHistory = false;
-const broserHistory = true;
+const broserHistory = false;
 
 //代理地址配置
 // var target = 'http://172.17.203.26:8080';//开发环境

@@ -1,6 +1,6 @@
 import {call,put,all,select,takeEvery,takeLatest,take,race,delay} from 'redux-saga/effects';
 import configs from './config'; 
-import doFetch from './fetch';
+import doFetch from '../service/fetch';
 
 /**
  * saga生成器
@@ -58,36 +58,11 @@ function* watchAndLog(){
    return 1;
 }
 
-/**
- * race Effect
- */
-function* raceTest(){
-   let result = yield race({
-      timeout1:call(doFetch,'./package.json'),
-      timeout2:call(doFetch,'https://api.github.com/users/yuhualingfeng',{mode:'cors'})
-
-   });
-   //console.log(result);
-
-}
-
-/**
- * 同时执行多个任务
- */
-function* parallelTasks(){
-   const result = yield all([call(doFetch,'./package.json'),call(doFetch,'https://api.github.com/users/yuhualingfeng',{mode:'cors'})]);
-   //console.log(result);
-}
-
-
-
 function* rootSaga(){
   const result =  yield all([
      fetchList(),
      delayTimeSaga(),
-     watchAndLog(),
-     raceTest(),
-     parallelTasks()
+     watchAndLog()
    ]);
    console.log(result);
 }

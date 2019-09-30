@@ -70,7 +70,8 @@ const providerPlugin = new webpack.ProvidePlugin({
     jQuery: "jquery",
     React:'react',
     ReactRedux:'react-redux',
-    util:'util'
+    util:'util',
+    echarts:'echarts'
 });
 
 /*********plugins***********/

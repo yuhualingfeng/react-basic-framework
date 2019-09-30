@@ -91,7 +91,8 @@ const providePlugin = new webpack.ProvidePlugin({
     jQuery: "jquery",
     React:"react",
     ReactRedux:'react-redux',
-    util:'util'
+    util:'util',
+    echarts:'echarts'
 });
 
 const dlllibs = ['bootstrap', 'jquery', 'react', 'redux','echarts'];
