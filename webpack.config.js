@@ -89,10 +89,8 @@ module.exports = {
 	},
     resolve: {
         alias: {
-            'util': path.resolve(//path.resolve,把当前位置转换为绝对位置
-                __dirname,
-                './src/components/common/util'
-            )
+            'util': path.resolve(__dirname,'./src/components/common/util'),
+            '@':path.resolve(__dirname,'./src')
         }
     },
 	module:{
