@@ -43,10 +43,10 @@ const htmlWebpackPlugin = new HtmlWebpackPlugin(
 module.exports = {
     entry: {
         jquery:["jquery"],
-        react:["react","react-dom","react-router-dom"],
+        react:["react","react-dom","react-router-dom","react-redux"],
         echarts:["echarts"],
         bootstrap:["bootstrap","bootstrap-datepicker"],
-        redux:["react-redux","redux","redux-saga","redux-saga/effects"]
+        redux:["redux","redux-saga","redux-saga/effects"]
     },
     output: {
         path: path.join(__dirname, 'dll'),
