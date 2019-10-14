@@ -1,3 +1,7 @@
+/**
+ * echarts图形配置文件
+ * 备注:每个option属性不能随意修改
+ */
 const baseColors = ['#26D4FF', '#FFBF01', '#FB7A53', '#8c65e6', '#40cd84', '#5aedc5', '#26edff', '#f8f242', '#ff4401', '#a2e178', '#00b6ea', '#008aea', '#fb5377', '#d94cf7', '#704add'];
 export const ADDPercentSignFormatter = params => {
 	let str = params[0].name;

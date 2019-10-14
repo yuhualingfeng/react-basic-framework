@@ -1,3 +1,4 @@
+// 公用方法
 let util = {
 	name:'welcome'
 }

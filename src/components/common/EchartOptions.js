@@ -1,4 +1,5 @@
 /**
+ * echarts图形配置文件
  * 备注:每个option属性不能随意修改
  */
 import EchartOptions2 from './EchartOptions2';

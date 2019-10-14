@@ -1,3 +1,6 @@
+/**
+ * echarts图形demo页
+ */
 import EchartsComp from './EchartsComp';
 import EchartOptions from './EchartOptions';
 class EchartsDemo extends React.Component{
