@@ -84,6 +84,7 @@ module.exports = {
 		path:path.join(__dirname,'dist'),
 		filename:'[name].js',
         publicPath:'http://localhost:8083/',
+        // publicPath:'http://10.109.18.191:8083/',
         chunkFilename:'[id].[name].chunk.js'
 	},
     resolve: {
