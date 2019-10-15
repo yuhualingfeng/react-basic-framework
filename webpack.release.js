@@ -28,7 +28,15 @@ const lessLoader = {
                         plugins:[require("autoprefixer")("last 100 versions")]
                     }
         },
-        'less-loader']
+        {
+            loader:'less-loader',
+            options:{
+                modifyVars: {
+                    'primary-color': '#23ac38'
+                },
+                javascriptEnabled: true
+            }
+        }]
 };
 
 const babelLoader = {
@@ -45,7 +53,7 @@ const babelLoader = {
                 ["babel-plugin-import", {
                     "libraryName": "antd",
                     "libraryDirectory": "es",
-                    "style": "css" // `style: true` 会加载 less 文件
+                    "style": true // `style: true` 会加载 less 文件
                   }]
             ]
         }
