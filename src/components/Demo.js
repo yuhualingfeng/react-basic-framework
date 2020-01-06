@@ -18,7 +18,8 @@ class Demo extends React.Component{
 		let {github,configFile} = this.props;
 		return(
 			<div>
-			my  {util['name']}
+			{commonConfig.name}<br></br>
+			{util['name']}<br></br>
 			<div onClick={this.request}>点击请求数据{github.state}{configFile.state}</div>
 			<Link to="/demo1">demo1</Link>
 			<Button type="primary">Primary</Button>

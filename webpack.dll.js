@@ -49,8 +49,8 @@ module.exports = {
         redux:["redux","redux-saga","redux-saga/effects"]
     },
     output: {
-        path: path.join(__dirname, 'dll'),
-        publicPath: './dll/',//访问路径
+        path: path.join(__dirname, 'dll'), // 文件生成的路径
+        publicPath: './dll/',// 访问路径
         filename: '[name].js',
         /**
          * output.library

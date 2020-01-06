@@ -78,7 +78,8 @@ const providerPlugin = new webpack.ProvidePlugin({
     jQuery: "jquery",
     React:'react',
     ReactRedux:'react-redux',
-    util:'util'
+    util:'util',
+    commonConfig:'commonConfig'
 });
 
 /*********plugins***********/
@@ -98,7 +99,8 @@ module.exports = {
     resolve: {
         alias: {
             'util': path.resolve(__dirname,'./src/components/common/util'),
-            '@':path.resolve(__dirname,'./src')
+            '@':path.resolve(__dirname,'./src'),
+            'commonConfig':path.resolve(__dirname,'./src/config/commonConfig')
         }
     },
 	module:{
